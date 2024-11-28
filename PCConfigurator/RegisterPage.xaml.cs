@@ -31,11 +31,8 @@ namespace PCConfigurator
         {
             // Получаем значения из полей
             string username = "'" + tbLogin.Text + "'";
-            string password = "" + tbPassword.Text + "'";
-            string confirmPassword = "'" + tbPassword2.Text + "'";
-
-
-
+            string password = "'" + tbPassword.Password + "'";
+            string confirmPassword = "'" + tbPassword2.Password + "'";
 
             // Проверка, что пароли совпадают
             if (password != confirmPassword)
@@ -51,17 +48,25 @@ namespace PCConfigurator
             else
             {
                 // Если пароли совпадают и все поля заполнены:
-                // Здесь можно добавить логику для сохранения данных (например, в базу данных)
-                using SQLiteConnection connect = new("Data Source=C:\\Users\\zag-0\\source\\repos\\PCConfigurator\\PCConfigurator\\Database\\configurator.db;Version=3;");
-                connect.Open();
-                using (SQLiteCommand cmd = new($"INSERT INTO Users (username,password_hash) VALUES ({username},{password})", connect)) { cmd.ExecuteNonQuery(); }
-                connect.Close()
+                SQLiteConnection connect = new SQLiteConnection("Data Source=C:\\Users\\zag-0\\source\\repos\\PCConfigurator\\PCConfigurator\\Database\\configurator.db;Version=3;");
+                try
+                {
+                    connect.Open();
+                    using (SQLiteCommand cmd = new SQLiteCommand($"INSERT INTO Users (username, password_hash) VALUES ({username}, {password})", connect))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                finally
+                {
+                    connect.Close();
+                }
+
                 MessageBox.Show("Регистрация прошла успешно!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 // Переход на страницу авторизации
                 this.NavigationService.Navigate(new LoginPage());
             }
-
         }
     }
 }

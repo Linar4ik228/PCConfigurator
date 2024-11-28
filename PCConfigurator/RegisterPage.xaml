@@ -10,11 +10,11 @@ Title="Регистрация">
             </StackPanel>
             <StackPanel Margin="15">
                 <TextBlock Text="Введите пароль"/>
-                <TextBox Name="tbPassword"/>
+                <PasswordBox Name="tbPassword"/>
             </StackPanel>
             <StackPanel Margin="15">
                 <TextBlock Text="Повторите пароль"/>
-                <TextBox Name="tbPassword2"/>
+                <PasswordBox Name="tbPassword2"/>
             </StackPanel>
             <Button Content="Зарегистрироваться" Click="RegisterButton_Click" Height="50"/>
             
