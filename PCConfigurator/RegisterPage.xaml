@@ -1,0 +1,23 @@
+﻿<Page x:Class="PCConfigurator.RegisterPage"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+Title="Регистрация">
+    <Grid>
+        <StackPanel VerticalAlignment="Center" Width="250" Height="247">
+            <StackPanel Margin="15">
+                <TextBlock Text="Введите имя (Логин)"/>
+                <TextBox Name="tbLogin"/>
+            </StackPanel>
+            <StackPanel Margin="15">
+                <TextBlock Text="Введите пароль"/>
+                <TextBox Name="tbPassword"/>
+            </StackPanel>
+            <StackPanel Margin="15">
+                <TextBlock Text="Повторите пароль"/>
+                <TextBox Name="tbPassword2"/>
+            </StackPanel>
+            <Button Content="Зарегистрироваться" Click="RegisterButton_Click" Height="50"/>
+            
+        </StackPanel>
+    </Grid>
+</Page>

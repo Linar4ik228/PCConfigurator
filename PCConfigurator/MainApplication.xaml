@@ -1,0 +1,85 @@
+﻿<Window x:Class="PCConfigurator.MainApplication"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Главное окно" Height="800" Width="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <TextBlock Text="Конфигуратор ПК" Width="auto"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="24" FontWeight="Bold"/>
+            <Button Content="Выйти" Margin="5" Width="150" HorizontalAlignment="Right" Click="ExitButton_Click"/>
+        </Grid>
+
+        <Grid Grid.Column="0" Grid.Row="1">
+            <!-- Кнопка "Открыть меню" -->
+            <Button Name="btnOpenMenu" Content="Открыть меню" Width="150"
+                    HorizontalAlignment="Center" VerticalAlignment="Top" Height="40" 
+                    Click="btnOpenMenu_Click"/>
+
+            <!-- Панель с кнопками "Периферия" и "Комплектующие" -->
+            <StackPanel x:Name="MenuPanel" Orientation="Vertical" 
+                        HorizontalAlignment="Center" VerticalAlignment="Top" 
+                        Margin="0,70,0,0" Visibility="Collapsed">
+                <Button Content="Периферия" Width="140" Height="40" Margin="5"/>
+                <Button Content="Комплектующие" Width="140" Height="40" Margin="5" 
+                        Click="btnComponents_Click"/>
+                <!-- Кнопка "Назад" -->
+                <Button Name="btnBackFromMenu" Content="Назад" Width="140" Height="40" Margin="5" 
+                        Click="btnBackFromMenu_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <Frame x:Name="MainFrame" Grid.Row="1" Grid.Column="1"
+               NavigationUIVisibility="Hidden"/>
+
+        <!-- Панель для комплектующих -->
+        <StackPanel x:Name="ComponentsPanel" Grid.Row="1" Grid.Column="1" 
+                    Orientation="Vertical" VerticalAlignment="Top" 
+                    HorizontalAlignment="Left" Margin="20,20,20,20" Visibility="Collapsed">
+
+            <!-- Список комплектующих -->
+            <TextBlock Text="Процессоры" FontSize="18" FontWeight="Bold"/>
+            <ComboBox Name="ComboBoxProcessors" Width="200" Margin="5" SelectionChanged="ComboBox_SelectionChanged"/>
+
+            <TextBlock Text="Видеокарты" FontSize="18" FontWeight="Bold" Margin="20,10,0,0"/>
+            <ComboBox Name="ComboBoxGraphicsCards" Width="200" Margin="5" SelectionChanged="ComboBox_SelectionChanged"/>
+
+            <TextBlock Text="Материнские платы" FontSize="18" FontWeight="Bold" Margin="20,10,0,0"/>
+            <ComboBox Name="ComboBoxMotherboards" Width="200" Margin="5" SelectionChanged="ComboBox_SelectionChanged"/>
+
+            <TextBlock Text="Оперативная память" FontSize="18" FontWeight="Bold" Margin="20,10,0,0"/>
+            <ComboBox Name="ComboBoxRAM" Width="200" Margin="5" SelectionChanged="ComboBox_SelectionChanged"/>
+
+            <TextBlock Text="Накопители" FontSize="18" FontWeight="Bold" Margin="20,10,0,0"/>
+            <ComboBox Name="ComboBoxStorage" Width="200" Margin="5" SelectionChanged="ComboBox_SelectionChanged"/>
+
+            <TextBlock Text="Охлаждение" FontSize="18" FontWeight="Bold" Margin="20,10,0,0"/>
+            <ComboBox Name="ComboBoxCooling" Width="200" Margin="5" SelectionChanged="ComboBox_SelectionChanged"/>
+
+            <TextBlock Text="Корпус" FontSize="18" FontWeight="Bold" Margin="20,10,0,0"/>
+            <ComboBox Name="ComboBoxCases" Width="200" Margin="5" SelectionChanged="ComboBox_SelectionChanged"/>
+
+            <!-- Общая стоимость -->
+            <TextBlock Name="TotalPriceText" FontSize="20" FontWeight="Bold" Margin="20,20,0,0" Text="Общая стоимость: 0 руб."/>
+
+            <!-- Кнопка "Назад" -->
+            <Button Name="btnBackFromComponents" Content="Назад" Width="150" Height="40" 
+                    Margin="20,10,0,0" Click="btnBackFromComponents_Click"/>
+
+            <!-- Кнопка "Очистить" -->
+            <Button Name="btnClear" Content="Очистить" Width="150" Height="40" Margin="20,10,0,0" Click="btnClear_Click" Visibility="Collapsed"/>
+
+            <!-- Картинка сборки ПК справа -->
+            <Image Name="ComputerImage" Width="350" Height="350" Margin="20,20,20,20" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        </StackPanel>
+    </Grid>
+</Window>

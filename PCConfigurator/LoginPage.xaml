@@ -1,0 +1,23 @@
+﻿<Page x:Class="PCConfigurator.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Авторизация">
+    <Grid>
+        <StackPanel VerticalAlignment="Center" Width="250" Height="188">
+            <!-- Поле для ввода логина -->
+            <StackPanel Margin="15">
+                <TextBlock Text="Введите имя (Логин)"/>
+                <TextBox Name="tbLogin" Width="200"/>
+            </StackPanel>
+
+            <!-- Поле для ввода пароля -->
+            <StackPanel Margin="15">
+                <TextBlock Text="Введите пароль"/>
+                <PasswordBox Name="tbPassword" Width="200"/>
+            </StackPanel>
+
+            <!-- Кнопка для входа -->
+            <Button Content="Войти" Height="50" Click="LoginButton_Click" Width="200" HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</Page>
