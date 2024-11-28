@@ -18,8 +18,8 @@ namespace PCConfigurator
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             // Получаем значения из полей
-            string username =  "'" + tbLogin.Text + "'";
-            string password =  "'" + tbPassword.Password + "'";
+            string username = tbLogin.Text;
+            string password = tbPassword.Password;
 
             // Проверка, что поля не пустые
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
@@ -29,7 +29,7 @@ namespace PCConfigurator
             }
 
             // Строка подключения к базе данных SQLite
-            using (SQLiteConnection connect = new SQLiteConnection("Data Source=C:\\Users\\zag-0\\source\\repos\\PCConfigurator\\PCConfigurator\\Database\\configurator.db;Version=3;"))
+            using (SQLiteConnection connect = new SQLiteConnection("Data Source=Database\\configurator.db;Version=3;"))
             {
                 try
                 {
@@ -51,7 +51,11 @@ namespace PCConfigurator
                             MessageBox.Show("Авторизация успешна!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
 
                             // Переход на главную страницу
-                            this.NavigationService.Navigate(new MainWindow());
+                            MainApplication mainApplication = new MainApplication();
+                            mainApplication.Show();
+
+                            // Закрыть текущее окно или скрыть его
+                            Window.GetWindow(this)?.Hide();
                         }
                         else
                         {

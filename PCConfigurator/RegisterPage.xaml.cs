@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,8 +48,9 @@ namespace PCConfigurator
             }
             else
             {
+                
                 // Если пароли совпадают и все поля заполнены:
-                SQLiteConnection connect = new SQLiteConnection("Data Source=C:\\Users\\zag-0\\source\\repos\\PCConfigurator\\PCConfigurator\\Database\\configurator.db;Version=3;");
+                SQLiteConnection connect = new SQLiteConnection("Data Source=Database\\configurator.db;Version=3;");
                 try
                 {
                     connect.Open();
