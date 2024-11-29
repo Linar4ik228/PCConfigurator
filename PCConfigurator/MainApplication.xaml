@@ -77,7 +77,8 @@
 
             <!-- Кнопка "Очистить" -->
             <Button Name="btnClear" Content="Очистить" Width="150" Height="40" Margin="20,10,0,0" Click="btnClear_Click" Visibility="Collapsed"/>
-
+        </StackPanel>
+        <StackPanel x:Name="CompPanel" HorizontalAlignment="Left" Margin="374,54,0,261" Grid.Column="1" Grid.Row="1">
             <!-- Картинка сборки ПК справа -->
             <Image Name="ComputerImage" Width="350" Height="350" Margin="20,20,20,20" HorizontalAlignment="Right" VerticalAlignment="Top"/>
         </StackPanel>

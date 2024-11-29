@@ -17,7 +17,6 @@ Title="Регистрация">
                 <PasswordBox Name="tbPassword2"/>
             </StackPanel>
             <Button Content="Зарегистрироваться" Click="RegisterButton_Click" Height="50"/>
-            
         </StackPanel>
     </Grid>
 </Page>

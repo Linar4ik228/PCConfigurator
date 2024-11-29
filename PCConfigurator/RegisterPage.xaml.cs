@@ -56,6 +56,8 @@ namespace PCConfigurator
                     connect.Open();
                     using (SQLiteCommand cmd = new SQLiteCommand($"INSERT INTO Users (username, password_hash) VALUES ({username}, {password})", connect))
                     {
+                        cmd.Parameters.AddWithValue("@username", tbLogin.Text);
+                        cmd.Parameters.AddWithValue("@password", tbPassword.Password);
                         cmd.ExecuteNonQuery();
                     }
                 }

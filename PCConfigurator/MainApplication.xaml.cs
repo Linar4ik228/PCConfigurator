@@ -8,6 +8,8 @@ namespace PCConfigurator
     public partial class MainApplication : Window
     {
         private decimal totalPrice = 0; // Переменная для общей стоимости
+        private DatabaseHelper dbHelper; // Экземпляр DatabaseHelper для работы с базой данных
+
 
         public MainApplication()
         {
@@ -77,19 +79,69 @@ namespace PCConfigurator
         // Заполнение ComboBox'ов (заглушка для данных)
         private void FillComboBoxes()
         {
-            // Заполнение ComboBox для процессоров
-            ComboBoxProcessors.Items.Clear();
-            ComboBoxProcessors.Items.Add(new Component { Name = "i3-3300", Price = 1200 });
-            ComboBoxProcessors.Items.Add(new Component { Name = "i5-12500f", Price = 2500 });
-            ComboBoxProcessors.Items.Add(new Component { Name = "Xeon 2640 v3", Price = 3200 });
+            try
+            {
+                // Получаем процессоры из базы данных
+                var processors = dbHelper.GetProcessors();
+                ComboBoxProcessors.Items.Clear();
+                foreach (var processor in processors)
+                {
+                    ComboBoxProcessors.Items.Add(processor);
+                }
 
-            // Заполнение ComboBox для видеокарт
-            ComboBoxGraphicsCards.Items.Clear();
-            ComboBoxGraphicsCards.Items.Add(new Component { Name = "GTX 1050 Ti", Price = 15000 });
-            ComboBoxGraphicsCards.Items.Add(new Component { Name = "RTX 3060", Price = 25000 });
-            ComboBoxGraphicsCards.Items.Add(new Component { Name = "RX 6800", Price = 35000 });
+                // Получаем видеокарты из базы данных
+                var gpus = dbHelper.GetGraphicsCards();
+                ComboBoxGraphicsCards.Items.Clear();
+                foreach (var gpu in gpus)
+                {
+                    ComboBoxGraphicsCards.Items.Add(gpu);
+                }
 
-            // Заполнение других ComboBox аналогично...
+                // Получаем материнские платы из базы данных
+                var motherboards = dbHelper.GetMotherboards();
+                ComboBoxMotherboards.Items.Clear();
+                foreach (var motherboard in motherboards)
+                {
+                    ComboBoxMotherboards.Items.Add(motherboard);
+                }
+
+                // Получаем ОЗУ из базы данных
+                var ram = dbHelper.GetRAM();
+                ComboBoxRAM.Items.Clear();
+                foreach (var memory in ram)
+                {
+                    ComboBoxRAM.Items.Add(memory);
+                }
+
+                // Получаем накопители из базы данных
+                var storage = dbHelper.GetStorage();
+                ComboBoxStorage.Items.Clear();
+                foreach (var s in storage)
+                {
+                    ComboBoxStorage.Items.Add(s);
+                }
+
+                // Получаем охлаждение из базы данных
+                var cooling = dbHelper.GetCooling();
+                ComboBoxCooling.Items.Clear();
+                foreach (var cool in cooling)
+                {
+                    ComboBoxCooling.Items.Add(cool);
+                }
+
+                // Получаем корпуса из базы данных
+                var cases = dbHelper.GetCases();
+                ComboBoxCases.Items.Clear();
+                foreach (var c in cases)
+                {
+                    ComboBoxCases.Items.Add(c);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при загрузке данных: " + ex.Message);
+            }
         }
 
         // Обработчик для изменения выбора в ComboBox
@@ -118,7 +170,20 @@ namespace PCConfigurator
             if (ComboBoxGraphicsCards.SelectedItem is Component gpu)
                 totalPrice += gpu.Price;
 
-            // Добавить другие компоненты аналогично...
+            if (ComboBoxMotherboards.SelectedItem is Component motherboard)
+                totalPrice += motherboard.Price;
+
+            if (ComboBoxRAM.SelectedItem is Component ram)
+                totalPrice += ram.Price;
+
+            if (ComboBoxStorage.SelectedItem is Component storage)
+                totalPrice += storage.Price;
+
+            if (ComboBoxCooling.SelectedItem is Component cooling)
+                totalPrice += cooling.Price;
+
+            if (ComboBoxCases.SelectedItem is Component caseComponent)
+                totalPrice += caseComponent.Price;
 
             // Обновить текст общей стоимости
             TotalPriceText.Text = $"Общая стоимость: {totalPrice} руб.";
