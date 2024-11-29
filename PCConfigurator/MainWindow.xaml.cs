@@ -41,5 +41,9 @@ namespace PCConfigurator
             // Переход на страницу авторизации
             FrameForLogin.Navigate(new LoginPage());
         }
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Environment.Exit(0); // Полное завершение приложения
+        }
     }
 }

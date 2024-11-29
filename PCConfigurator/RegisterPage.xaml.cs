@@ -50,10 +50,24 @@ namespace PCConfigurator
             {
                 
                 // Если пароли совпадают и все поля заполнены:
-                SQLiteConnection connect = new SQLiteConnection("Data Source=Database\\configurator.db;Version=3;");
+                SQLiteConnection connect = new SQLiteConnection("Data Source=C:\\Users\\Линар Загидуллин\\Source\\Repos\\PCConfigurator\\PCConfigurator\\Database\\configurator.db;Version=3;");
                 try
                 {
                     connect.Open();
+
+                    using (SQLiteCommand checkUserCmd = new SQLiteCommand("SELECT COUNT(*) FROM Users WHERE username = @username", connect))
+                    {
+                        checkUserCmd.Parameters.AddWithValue("@username", username);
+                        int userExists = Convert.ToInt32(checkUserCmd.ExecuteScalar());
+
+                        if (userExists > 0)
+                        {
+                            // Если пользователь с таким логином уже существует
+                            MessageBox.Show("Пользователь с таким логином уже существует!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
+                    }
+
                     using (SQLiteCommand cmd = new SQLiteCommand($"INSERT INTO Users (username, password_hash) VALUES ({username}, {password})", connect))
                     {
                         cmd.Parameters.AddWithValue("@username", tbLogin.Text);
