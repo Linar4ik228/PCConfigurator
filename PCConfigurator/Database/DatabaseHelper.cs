@@ -14,7 +14,7 @@ namespace PCConfigurator
         {
             // Указываем путь к базе данных. Путь относительно исполнимого файла.
             string databaseFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database", "configurator.db");
-            connectionString = ($"Data Source=C:\\Users\\Линар Загидуллин\\Source\\Repos\\PCConfigurator\\PCConfigurator\\Database\\configurator.db;Version=3;)");
+            connectionString = ($"Data Source={AppDomain.CurrentDomain.BaseDirectory}\\Database\\configurator.db;Version=3;");
         }
 
         // Метод для получения соединения с базой данных

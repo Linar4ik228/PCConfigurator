@@ -29,7 +29,7 @@ namespace PCConfigurator
             }
 
             // Строка подключения к базе данных SQLite
-            using (SQLiteConnection connect = new SQLiteConnection("Data Source=C:\\Users\\Линар Загидуллин\\Source\\Repos\\PCConfigurator\\PCConfigurator\\Database\\configurator.db;Version=3;"))
+            using (SQLiteConnection connect = new SQLiteConnection($"Data Source={AppDomain.CurrentDomain.BaseDirectory}\\Database\\configurator.db;Version=3;"))
             {
                 try
                 {
@@ -65,14 +65,16 @@ namespace PCConfigurator
                 }
                 catch (Exception ex)
                 {
-                    // Логирование или обработка ошибки
-                    MessageBox.Show($"Произошла ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Ошибка при подключении к базе данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+            
+                
                 finally
                 {
                     // Код для очистки, если необходимо
                     connect.Close();
                 }
+
             }
         }
     }

@@ -48,42 +48,49 @@ namespace PCConfigurator
             }
             else
             {
-                
-                // Если пароли совпадают и все поля заполнены:
-                SQLiteConnection connect = new SQLiteConnection("Data Source=C:\\Users\\Линар Загидуллин\\Source\\Repos\\PCConfigurator\\PCConfigurator\\Database\\configurator.db;Version=3;");
-                try
+
+                using (SQLiteConnection connect = new SQLiteConnection($"Data Source={AppDomain.CurrentDomain.BaseDirectory}\\Database\\configurator.db;Version=3;"))
                 {
-                    connect.Open();
-
-                    using (SQLiteCommand checkUserCmd = new SQLiteCommand("SELECT COUNT(*) FROM Users WHERE username = @username", connect))
+                    try
                     {
-                        checkUserCmd.Parameters.AddWithValue("@username", username);
-                        int userExists = Convert.ToInt32(checkUserCmd.ExecuteScalar());
+                        connect.Open();
 
-                        if (userExists > 0)
+                        // Проверка, существует ли уже пользователь с таким логином
+                        using (SQLiteCommand checkUserCmd = new SQLiteCommand("SELECT COUNT(*) FROM Users WHERE username = @username", connect))
                         {
-                            // Если пользователь с таким логином уже существует
-                            MessageBox.Show("Пользователь с таким логином уже существует!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                            return;
+                            checkUserCmd.Parameters.AddWithValue("@username", username);
+                            int userExists = Convert.ToInt32(checkUserCmd.ExecuteScalar());
+
+                            if (userExists > 0)
+                            {
+                                // Если пользователь с таким логином уже существует
+                                MessageBox.Show("Пользователь с таким логином уже существует!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                return;
+                            }
                         }
-                    }
 
-                    using (SQLiteCommand cmd = new SQLiteCommand($"INSERT INTO Users (username, password_hash) VALUES ({username}, {password})", connect))
+                        // Добавление нового пользователя в базу данных
+                        using (SQLiteCommand cmd = new SQLiteCommand("INSERT INTO Users (username, password_hash) VALUES (@username, @password)", connect))
+                        {
+                            cmd.Parameters.AddWithValue("@username", username);
+                            cmd.Parameters.AddWithValue("@password", password); // Здесь предполагается, что пароль уже захеширован
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        MessageBox.Show("Регистрация прошла успешно!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        // Переход на страницу авторизации
+                        this.NavigationService.Navigate(new LoginPage());
+                    }
+                    catch (Exception ex)
                     {
-                        cmd.Parameters.AddWithValue("@username", tbLogin.Text);
-                        cmd.Parameters.AddWithValue("@password", tbPassword.Password);
-                        cmd.ExecuteNonQuery();
+                        MessageBox.Show($"Ошибка при работе с базой данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    finally
+                    {
+                        connect.Close();
                     }
                 }
-                finally
-                {
-                    connect.Close();
-                }
-
-                MessageBox.Show("Регистрация прошла успешно!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                // Переход на страницу авторизации
-                this.NavigationService.Navigate(new LoginPage());
             }
         }
     }
