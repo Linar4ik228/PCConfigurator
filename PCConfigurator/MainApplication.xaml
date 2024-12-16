@@ -8,7 +8,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Image
@@ -22,10 +22,10 @@
             <Button Content="Выйти" Margin="5" Width="150" HorizontalAlignment="Right" Click="ExitButton_Click"/>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="1">
+        <Grid Grid.Column="0" Grid.Row="1">
             <!-- Кнопка "Открыть меню" -->
-            <Button Name="btnOpenMenu" Content="Открыть меню" Width="450" FontSize="45" FontFamily="Comic Sans MS"
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Height="120" 
+            <Button Name="btnOpenMenu" Content="Открыть меню" Width="150" FontFamily="Comic Sans MS" Margin="10 0 0 0"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" 
                     Click="btnOpenMenu_Click"/>
 
             <!-- Панель с кнопками "Периферия" и "Комплектующие" -->
